@@ -104,25 +104,86 @@
 
     <!-- Main Content Section -->
     <div class="content">
-        <h2>Join Kiwi Union</h2>
-        <div class="membership-form">
-            <form action="membership.php" method="post">
-             	<input type="text" placeholder="Full Name" required>
-                <input type="text" placeholder="Residential Address" required>
-                <input type="text" placeholder="Date of Birth">
-                <input type="phone" placeholder="phone">
-		<input type="email" placeholder="Email address" required>
-		<input type="text">
-		<input type="text">
-		
-                <select required>
-                    <option value="" disabled selected>Membership Type</option>
-                    <option value="standard">Standard</option>
-                    <option value="premium">Premium</option>
-                    <option value="corporate">Corporate</option>
-                </select>
-                <button type="submit">Submit</button>
-            </form>
+<h2>Kiwi Union Membership Form</h2>
+
+    <form action="/submit_form" method="post" id="membershipForm">
+        <!-- Member’s Details -->
+        <h3>Member’s details</h3>
+        <label for="full_name">Full name:</label><br>
+        <input type="text" id="full_name" name="full_name" required minlength="3"><br><br>
+
+        <label for="street_address">Residential street address:</label><br>
+        <input type="text" id="street_address" name="street_address" required><br><br>
+
+        <label for="city">Suburb, town, city or locality:</label><br>
+        <input type="text" id="city" name="city" required><br><br>
+
+        <label for="dob">Date of birth:</label><br>
+        <input type="date" id="dob" name="dob" required><br><br>
+
+        <label for="telephone">Telephone number/s:</label><br>
+        <input type="tel" id="telephone" name="telephone" required pattern="[0-9]{10}" placeholder="10-digit number"><br><br>
+
+        <label for="email">Email address:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <!-- Enrolment Details -->
+        <h3>Enrolment details</h3>
+        <label>I am a registered elector:</label><br>
+        <input type="radio" id="elector_yes" name="registered_elector" value="YES" required>
+        <label for="elector_yes">YES</label><br>
+        <input type="radio" id="elector_no" name="registered_elector" value="NO" required>
+        <label for="elector_no">NO</label><br><br>
+
+        <label for="electorate">Enrolled in electorate:</label><br>
+        <input type="text" id="electorate" name="electorate"><br><br>
+
+        <label>I am not a registered elector but I am eligible to enrol:</label><br>
+        <input type="radio" id="eligible_yes" name="eligible_to_enrol" value="YES" required>
+        <label for="eligible_yes">YES</label><br>
+        <input type="radio" id="eligible_no" name="eligible_to_enrol" value="NO" required>
+        <label for="eligible_no">NO</label><br><br>
+
+        <label for="years_residence">I have lived continuously in New Zealand for:</label><br>
+        <input type="number" id="years_residence" name="years_residence" min="0" placeholder="Years" required>
+        <input type="number" id="months_residence" name="months_residence" min="0" max="11" placeholder="Months" required><br><br>
+
+        <label for="overseas_date">If you live overseas, provide the date last in New Zealand:</label><br>
+        <input type="date" id="overseas_date" name="overseas_date"><br><br>
+
+        <!-- Membership Details -->
+        <h3>Membership details</h3>
+        <input type="checkbox" id="membership_fee" name="membership_fee" required>
+        <label for="membership_fee">I enclose/have paid my membership fee of $10.00 for a 1-year membership with this application.</label><br><br>
+
+        <input type="checkbox" id="authorise_record" name="authorise_record" required>
+        <label for="authorise_record">I authorise Kiwi Union to record my name as a financial member of Kiwi Union.</label><br><br>
+
+        <input type="checkbox" id="authorise_release" name="authorise_release" required>
+        <label for="authorise_release">I authorise the secretary of Kiwi Union to release this application form and subsequent financial membership details to the Electoral Commission.</label><br><br>
+
+        <label for="signature">Signed:</label><br>
+        <input type="text" id="signature" name="signature" required><br><br>
+
+        <label for="date_signed">Dated:</label><br>
+        <input type="date" id="date_signed" name="date_signed" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // JavaScript Validation for custom cases
+        document.getElementById('membershipForm').addEventListener('submit', function(event) {
+            var years = document.getElementById('years_residence').value;
+            var months = document.getElementById('months_residence').value;
+            
+            // Ensure that user inputs a positive year/month value
+            if (years < 0 || months < 0 || months > 11) {
+                alert("Please enter valid values for years and months of residence.");
+                event.preventDefault();  // Stop form submission
+            }
+        });
+    </script>
         </div>
 	<br><br><br>
 
