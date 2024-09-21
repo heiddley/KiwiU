@@ -1,10 +1,5 @@
 ﻿
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-</head>
-<body>
+
 
 <?php
 // Check if the form is submitted
@@ -69,5 +64,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-</body>
-</html>
