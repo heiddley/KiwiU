@@ -35,7 +35,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Please fill in all the required fields.";
     } else {
         // Process the form data (for example, save it to a database or send an email)
+          // Email to send the form data to
+    $to = "ngatiruanui@hotmail.com";  // Replace with your email
 
+    // Email subject
+    $subject = "New Membership Form Submission";
+
+    // Email body content
+    $message = "
+        <html>
+        <head>
+            <title>New Membership Form Submission</title>
+        </head>
+        <body>
+            <h2>Member's Details</h2>
+            <p><strong>Full Name:</strong> $full_name</p>
+            <p><strong>Address:</strong> $street_address, $city</p>
+            <p><strong>Date of Birth:</strong> $dob</p>
+            <p><strong>Telephone:</strong> $telephone</p>
+            <p><strong>Email:</strong> $email</p>
+            
+            <h2>Enrolment Details</h2>
+            <p><strong>Registered Elector:</strong> $registered_elector</p>";
+            
+    if (!empty($electorate)) {
+        $message .= "<p><strong>Electorate:</strong> $electorate</p>";
+    }
+
+    $message .= "
+            <p><strong>Eligible to Enrol:</strong> $eligible_to_enrol</p>
+            <p><strong>Years in NZ:</strong> $years_residence</p>
+            <p><strong>Months in NZ:</strong> $months_residence</p>";
+
+    if (!empty($overseas_date)) {
+        $message .= "<p><strong>Last Date in NZ (if overseas):</strong> $overseas_date</p>";
+    }
+
+    $message .= "
+            <h2>Membership Details</h2>
+            <p><strong>Membership Fee Paid:</strong> $membership_fee_paid</p>
+            <p><strong>Authorise Record:</strong> $authorise_record</p>
+            <p><strong>Authorise Release:</strong> $authorise_release</p>
+            <p><strong>Signature:</strong> $signature</p>
+            <p><strong>Date Signed:</strong> $date_signed</p>
+        </body>
+        </html>
+    ";
+
+    // Set content-type header for sending HTML email
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+    // Additional headers
+    $headers .= 'From: no-reply@kiwiunion.com' . "\r\n";  // Change the from email address
+    $headers .= 'Reply-To: ' . $email . "\r\n";
+
+    // Send email
+    if (mail($to, $subject, $message, $headers)) {
+        echo "Your membership form has been successfully submitted!";
+    } else {
+        echo "There was a problem sending your form. Please try again.";
+    }
+}  
         // Sample output to show data has been retrieved
         echo "<h2>Membership Form Details:</h2>";
         echo "<p><strong>Full name:</strong> $full_name</p>";
